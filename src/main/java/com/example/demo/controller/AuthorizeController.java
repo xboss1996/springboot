@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.AccessTokenDTO;
+import com.example.demo.dto.GithubUser;
 import com.example.demo.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +29,9 @@ public class AuthorizeController {
         accesstokenDTO.setRedirect_url(uri);
         accesstokenDTO.setClient_id(id);
         accesstokenDTO.setClient_secret(secret);
-        githubProvider.getAccessToken(accesstokenDTO);
+        String accessToken = githubProvider.getAccessToken(accesstokenDTO);
+        GithubUser user =githubProvider.getUser(accessToken);
+        System.out.println(user.getName());
         return "index";
     }
 
